@@ -1,6 +1,6 @@
 # Make Your Blackjack Code More Testable
 
-This is the starter code base for the "Make Code More Testable" class.
+This is the starter code base for the "Refactoring to Testable Code" EBP class, (also known as "Make Code More Testable").
 
 # Requirements
 
