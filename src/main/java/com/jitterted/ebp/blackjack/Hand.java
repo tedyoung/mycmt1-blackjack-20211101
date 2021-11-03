@@ -33,7 +33,7 @@ public class Hand {
 
     private int valueAdjustedForAce(int handValue) {
         // if the total hand value <= 11, then count the Ace as 11 by adding 10
-        if (hasAce() && handValue < 11) {
+        if (hasAce() && handValue <= 11) {
             handValue += 10;
         }
         return handValue;
