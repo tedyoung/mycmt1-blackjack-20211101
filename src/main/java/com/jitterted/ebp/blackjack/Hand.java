@@ -2,24 +2,20 @@ package com.jitterted.ebp.blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.fusesource.jansi.Ansi.ansi;
 
 public class Hand {
     private final List<Card> cards = new ArrayList<>();
 
-    // temporary: remove this when done with refactor
-    @Deprecated
-    public List<Card> getCards() {
-        return cards;
-    }
-
     int value() {
-        List<Card> hand1 = getCards();
-        int handValue = hand1
+        int handValue = cards
                 .stream()
                 .mapToInt(Card::rankValue)
                 .sum();
         // does the hand contain at least 1 Ace?
-        boolean hasAce = hand1
+        boolean hasAce = cards
                 .stream()
                 .anyMatch(card -> card.rankValue() == 1);
 
@@ -28,5 +24,20 @@ public class Hand {
             handValue += 10;
         }
         return handValue;
+    }
+
+    void drawCardFrom(Deck deck) {
+        cards.add(deck.draw());
+    }
+
+    void display() {
+        System.out.println(cards.stream()
+                                .map(Card::display)
+                                .collect(Collectors.joining(
+                                       ansi().cursorUp(6).cursorRight(1).toString())));
+    }
+
+    Card firstCard() {
+        return cards.get(0);
     }
 }
