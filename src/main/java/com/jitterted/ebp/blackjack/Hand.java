@@ -9,6 +9,13 @@ import static org.fusesource.jansi.Ansi.ansi;
 public class Hand {
     private final List<Card> cards = new ArrayList<>();
 
+    public Hand() {
+    }
+
+    public Hand(List<Card> cards) {
+        this.cards.addAll(cards);
+    }
+
     int value() {
         int handValue = cards
                 .stream()
