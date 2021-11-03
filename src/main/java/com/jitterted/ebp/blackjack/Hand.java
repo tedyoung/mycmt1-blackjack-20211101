@@ -31,10 +31,6 @@ public class Hand {
                                        ansi().cursorUp(6).cursorRight(1).toString())));
     }
 
-    Card firstCard() {
-        return cards.get(0);
-    }
-
     private int valueAdjustedForAce(int handValue) {
         // if the total hand value <= 11, then count the Ace as 11 by adding 10
         if (hasAce() && handValue < 11) {
@@ -54,5 +50,25 @@ public class Hand {
                 .stream()
                 .mapToInt(Card::rankValue)
                 .sum();
+    }
+
+    boolean isBusted() {
+        return value() > 21;
+    }
+
+    Card firstCard() {
+        return cards.get(0);
+    }
+
+    boolean dealerShouldHit() {
+        return value() <= 16;
+    }
+
+    boolean pushes(Hand hand) {
+        return hand.value() == value();
+    }
+
+    boolean beats(Hand hand) {
+        return hand.value() < value();
     }
 }
