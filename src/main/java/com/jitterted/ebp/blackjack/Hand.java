@@ -17,20 +17,7 @@ public class Hand {
     }
 
     int value() {
-        int handValue = cards
-                .stream()
-                .mapToInt(Card::rankValue)
-                .sum();
-        // does the hand contain at least 1 Ace?
-        boolean hasAce = cards
-                .stream()
-                .anyMatch(card -> card.rankValue() == 1);
-
-        // if the total hand value <= 11, then count the Ace as 11 by adding 10
-        if (hasAce && handValue < 11) {
-            handValue += 10;
-        }
-        return handValue;
+        return valueAdjustedForAce(rawValue());
     }
 
     void drawCardFrom(Deck deck) {
@@ -46,5 +33,26 @@ public class Hand {
 
     Card firstCard() {
         return cards.get(0);
+    }
+
+    private int valueAdjustedForAce(int handValue) {
+        // if the total hand value <= 11, then count the Ace as 11 by adding 10
+        if (hasAce() && handValue < 11) {
+            handValue += 10;
+        }
+        return handValue;
+    }
+
+    private boolean hasAce() {
+        return cards
+                .stream()
+                .anyMatch(card -> card.rankValue() == 1);
+    }
+
+    private int rawValue() {
+        return cards
+                .stream()
+                .mapToInt(Card::rankValue)
+                .sum();
     }
 }
