@@ -28,4 +28,13 @@ public class WalletTest {
         assertThat(wallet.isEmpty())
                 .isFalse();
     }
+    
+    @Test
+    public void newWalletThenBalanceIsZero() throws Exception {
+        Wallet wallet = new Wallet();
+
+        assertThat(wallet.balance())
+                .isZero();
+    }
+    
 }
